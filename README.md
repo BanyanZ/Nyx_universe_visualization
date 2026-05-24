@@ -73,6 +73,12 @@ PROJECT_DIR = r"C:\你的实际目录\可视化大作业"
 └─ Nyx_04_linked_selection_dashboard.mp4
 ```
 
+## 数据集获取
+
+本项目所需的数据集需自行下载，下载地址：
+https://chinavis.org/2026/zh/challenge_call_for_participation/
+
+请访问上述网址获取数据集并放置于项目指定目录。
 ## 网页视频路径
 
 `index.html` 中的视频地址只写文件名，例如：
