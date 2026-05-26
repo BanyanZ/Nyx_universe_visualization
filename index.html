@@ -35,19 +35,18 @@
 
     body {
       position: relative;
+      isolation: isolate;
       min-height: 100vh;
       margin: 0;
       overflow-x: hidden;
       background:
-        linear-gradient(125deg, rgba(251, 113, 133, 0.20), transparent 22%),
-        linear-gradient(155deg, rgba(245, 158, 11, 0.18), transparent 36%),
-        linear-gradient(205deg, rgba(163, 230, 53, 0.16), transparent 48%),
-        linear-gradient(245deg, rgba(45, 212, 191, 0.20), transparent 58%),
-        linear-gradient(292deg, rgba(56, 189, 248, 0.22), transparent 68%),
-        linear-gradient(330deg, rgba(167, 139, 250, 0.20), transparent 78%),
-        linear-gradient(0deg, #050713 0%, #101133 46%, #16091f 100%);
-      background-size: 160% 160%, 150% 150%, 170% 170%, 155% 155%, 165% 165%, 175% 175%, 100% 100%;
-      animation: rainbowField 18s ease-in-out infinite alternate;
+        radial-gradient(circle at 18% 18%, rgba(125, 211, 252, 0.18), transparent 28%),
+        radial-gradient(circle at 78% 16%, rgba(167, 139, 250, 0.16), transparent 30%),
+        radial-gradient(circle at 62% 76%, rgba(244, 114, 182, 0.10), transparent 34%),
+        radial-gradient(circle at 24% 82%, rgba(45, 212, 191, 0.10), transparent 34%),
+        linear-gradient(180deg, #02030a 0%, #050817 42%, #090b1f 72%, #03040c 100%);
+      background-size: 130% 130%, 150% 150%, 140% 140%, 160% 160%, 100% 100%;
+      animation: deepSpaceShift 24s ease-in-out infinite alternate;
       color: var(--ink);
       font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
       line-height: 1.72;
@@ -64,32 +63,91 @@
 
     body::before {
       background-image:
-        linear-gradient(115deg, transparent 0 18%, rgba(251, 113, 133, 0.18) 19%, transparent 30%),
-        linear-gradient(130deg, transparent 0 42%, rgba(56, 189, 248, 0.20) 43%, transparent 56%),
-        linear-gradient(78deg, transparent 0 64%, rgba(163, 230, 53, 0.13) 65%, transparent 76%),
-        repeating-linear-gradient(90deg, rgba(148, 163, 184, 0.10) 0 1px, transparent 1px 92px),
-        repeating-linear-gradient(0deg, rgba(148, 163, 184, 0.08) 0 1px, transparent 1px 92px);
-      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.80), transparent 86%);
-      opacity: 0.68;
-      animation: ribbonShift 16s ease-in-out infinite alternate;
+        radial-gradient(ellipse at 22% 34%, rgba(56, 189, 248, 0.18), transparent 32%),
+        radial-gradient(ellipse at 76% 62%, rgba(244, 114, 182, 0.13), transparent 34%),
+        radial-gradient(ellipse at 48% 48%, rgba(167, 139, 250, 0.10), transparent 38%),
+        linear-gradient(115deg, transparent 0 20%, rgba(148, 163, 184, 0.055) 35%, transparent 54%),
+        linear-gradient(68deg, transparent 0 42%, rgba(45, 212, 191, 0.045) 55%, transparent 76%);
+      mask-image: radial-gradient(circle at 52% 42%, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.36) 54%, transparent 88%);
+      opacity: 0.74;
+      animation: nebulaDrift 28s ease-in-out infinite alternate;
     }
 
     body::after {
       z-index: -1;
       background-image:
-        radial-gradient(circle at 10% 18%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.4px),
-        radial-gradient(circle at 74% 24%, rgba(45, 212, 191, 0.62) 0 1px, transparent 1.5px),
-        radial-gradient(circle at 58% 78%, rgba(245, 158, 11, 0.62) 0 1px, transparent 1.5px),
-        radial-gradient(circle at 92% 62%, rgba(244, 114, 182, 0.66) 0 1px, transparent 1.5px),
-        linear-gradient(90deg, rgba(251, 113, 133, 0.08), rgba(245, 158, 11, 0.08), rgba(163, 230, 53, 0.08), rgba(45, 212, 191, 0.08), rgba(56, 189, 248, 0.08), rgba(167, 139, 250, 0.08), rgba(244, 114, 182, 0.08));
-      background-size: 210px 210px, 260px 260px, 330px 330px, 290px 290px, 100% 100%;
-      opacity: 0.82;
-      animation: starDrift 24s linear infinite;
+        radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.78) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 72% 24%, rgba(186, 230, 253, 0.72) 0 1px, transparent 1.7px),
+        radial-gradient(circle at 44% 72%, rgba(254, 243, 199, 0.62) 0 1px, transparent 1.6px),
+        radial-gradient(circle at 88% 64%, rgba(221, 214, 254, 0.70) 0 1px, transparent 1.6px);
+      background-size: 220px 220px, 310px 310px, 380px 380px, 470px 470px;
+      opacity: 0.58;
+      animation: starDrift 46s linear infinite;
     }
 
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    .cosmic-field {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .cosmic-field::before {
+      position: absolute;
+      inset: -12%;
+      background:
+        radial-gradient(ellipse at 24% 28%, rgba(56, 189, 248, 0.16), transparent 36%),
+        radial-gradient(ellipse at 72% 68%, rgba(167, 139, 250, 0.13), transparent 38%),
+        radial-gradient(ellipse at 48% 54%, rgba(244, 114, 182, 0.08), transparent 42%);
+      filter: blur(24px);
+      opacity: 0.78;
+      transform: rotate(-8deg);
+      animation: cosmicCloud 34s ease-in-out infinite alternate;
+      content: "";
+    }
+
+    .star {
+      position: absolute;
+      left: var(--left);
+      top: var(--top);
+      width: var(--size);
+      height: var(--size);
+      border-radius: 50%;
+      opacity: 0;
+      background: hsl(var(--hue), 88%, var(--light));
+      box-shadow:
+        0 0 calc(var(--size) * 3) hsl(var(--hue), 92%, 78%),
+        0 0 calc(var(--size) * 9) hsla(var(--hue), 90%, 70%, 0.48);
+      animation:
+        starPulse var(--duration) ease-in-out var(--delay) infinite,
+        starFloat var(--float-duration) linear var(--delay) infinite;
+    }
+
+    .star::after {
+      position: absolute;
+      inset: calc(var(--size) * -2.2);
+      border-radius: 50%;
+      background: radial-gradient(circle, hsla(var(--hue), 92%, 76%, 0.34), transparent 62%);
+      opacity: 0.62;
+      content: "";
+    }
+
+    .star.is-bright::before {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: calc(var(--size) * 11);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, hsla(var(--hue), 100%, 86%, 0.82), transparent);
+      transform: translate(-50%, -50%) rotate(var(--flare-rotation));
+      opacity: 0.7;
+      content: "";
     }
 
     .progress {
@@ -481,6 +539,38 @@
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
     }
 
+    .detail-card {
+      width: 100%;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    .detail-card:hover,
+    .detail-card:focus {
+      outline: none;
+      transform: translateY(-2px);
+      border-color: rgba(125, 211, 252, 0.56);
+      background: rgba(56, 189, 248, 0.105);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 24px rgba(56, 189, 248, 0.16);
+    }
+
+    .detail-card::after {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      margin-top: 12px;
+      padding: 3px 9px;
+      border: 1px solid rgba(125, 211, 252, 0.26);
+      border-radius: 999px;
+      color: #b9f3ff;
+      background: rgba(56, 189, 248, 0.09);
+      font-size: 12px;
+      font-weight: 700;
+      content: "点击查看详细解释";
+    }
+
     .info-block h3 {
       margin: 0 0 8px;
       font-size: 16px;
@@ -515,6 +605,118 @@
     .q2 .conclusion { border-left-color: var(--cyan); background: rgba(45, 212, 191, 0.10); }
     .q3 .conclusion { border-left-color: var(--gold); background: rgba(245, 158, 11, 0.12); }
     .q4 .conclusion { border-left-color: var(--magenta); background: rgba(244, 114, 182, 0.12); }
+
+    .conclusion.detail-card::after {
+      content: "点击展开完整结论";
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
+    .detail-modal[hidden] {
+      display: none;
+    }
+
+    .detail-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 80;
+      display: grid;
+      place-items: center;
+      padding: 26px;
+    }
+
+    .detail-backdrop {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(125deg, rgba(251, 113, 133, 0.16), transparent 32%),
+        linear-gradient(235deg, rgba(56, 189, 248, 0.18), transparent 44%),
+        rgba(2, 6, 23, 0.76);
+      backdrop-filter: blur(10px);
+    }
+
+    .detail-dialog {
+      position: relative;
+      width: min(880px, 100%);
+      max-height: min(82vh, 760px);
+      overflow: auto;
+      padding: 28px 30px 30px;
+      border: 1px solid rgba(125, 211, 252, 0.42);
+      border-radius: 8px;
+      background:
+        linear-gradient(145deg, rgba(56, 189, 248, 0.13), transparent 34%),
+        linear-gradient(315deg, rgba(244, 114, 182, 0.12), transparent 34%),
+        rgba(7, 12, 25, 0.96);
+      box-shadow: 0 32px 90px rgba(0, 0, 0, 0.52), var(--glow-blue), var(--glow-pink);
+    }
+
+    .detail-dialog:focus {
+      outline: none;
+    }
+
+    .detail-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      min-height: 34px;
+      padding: 6px 11px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      color: #e0f2fe;
+      background: rgba(255, 255, 255, 0.07);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .detail-close:hover,
+    .detail-close:focus {
+      outline: none;
+      transform: translateY(-1px);
+      border-color: rgba(125, 211, 252, 0.62);
+      background: rgba(56, 189, 248, 0.16);
+    }
+
+    .detail-kicker {
+      margin: 0 80px 8px 0;
+      color: #8be9ff;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .detail-title {
+      margin: 0 80px 16px 0;
+      font-size: 24px;
+      line-height: 1.35;
+    }
+
+    .detail-body {
+      display: grid;
+      gap: 13px;
+      color: #dbeafe;
+      font-size: 15px;
+    }
+
+    .detail-body p,
+    .detail-body ul {
+      margin: 0;
+    }
+
+    .detail-body ul {
+      padding-left: 20px;
+    }
+
+    .detail-body li + li {
+      margin-top: 6px;
+    }
+
+    .detail-body strong {
+      color: #fef3c7;
+    }
 
     .video-panel {
       position: sticky;
@@ -617,18 +819,72 @@
     }
 
     @keyframes starDrift {
-      from { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
-      to { background-position: 210px 210px, -260px 260px, 330px -330px, -290px -290px, 100% 0; }
+      from { background-position: 0 0, 0 0, 0 0, 0 0; }
+      to { background-position: 220px 180px, -310px 240px, 380px -300px, -470px -280px; }
     }
 
-    @keyframes rainbowField {
-      from { background-position: 0% 20%, 100% 10%, 0% 80%, 100% 70%, 40% 0%, 70% 100%, 0 0; }
-      to { background-position: 100% 80%, 0% 90%, 100% 20%, 0% 30%, 60% 100%, 30% 0%, 0 0; }
+    @keyframes deepSpaceShift {
+      from { background-position: 0% 12%, 100% 8%, 62% 100%, 10% 78%, 0 0; }
+      to { background-position: 22% 28%, 76% 24%, 44% 78%, 32% 58%, 0 0; }
     }
 
-    @keyframes ribbonShift {
-      from { background-position: 0 0, 40px 0, -80px 0, 0 0, 0 0; }
-      to { background-position: 220px 0, -180px 0, 160px 0, 92px 92px, -92px -92px; }
+    @keyframes nebulaDrift {
+      from { background-position: 0 0, 40px -20px, -30px 30px, 0 0, 0 0; transform: scale(1) rotate(0deg); }
+      to { background-position: 80px 36px, -64px 72px, 60px -42px, 120px 0, -90px 0; transform: scale(1.05) rotate(1deg); }
+    }
+
+    @keyframes cosmicCloud {
+      from { transform: translate3d(-2%, -1%, 0) rotate(-8deg) scale(1); opacity: 0.58; }
+      to { transform: translate3d(2%, 1.5%, 0) rotate(-3deg) scale(1.08); opacity: 0.82; }
+    }
+
+    @keyframes starPulse {
+      0%, 100% {
+        opacity: 0.12;
+        transform: scale(0.62);
+        filter: brightness(0.52);
+      }
+
+      14% {
+        opacity: var(--peak);
+        transform: scale(1.18);
+        filter: brightness(1.55);
+      }
+
+      32% {
+        opacity: 0.28;
+        transform: scale(0.76);
+        filter: brightness(0.72);
+      }
+
+      48% {
+        opacity: var(--mid);
+        transform: scale(1);
+        filter: brightness(1.12);
+      }
+
+      61% {
+        opacity: 0.04;
+        transform: scale(0.42);
+        filter: brightness(0.28);
+      }
+
+      72% {
+        opacity: var(--late);
+        transform: scale(1.08);
+        filter: brightness(1.38);
+      }
+
+      86% {
+        opacity: 0;
+        transform: scale(0.22);
+        filter: brightness(0.12);
+      }
+    }
+
+    @keyframes starFloat {
+      from { margin-left: 0; margin-top: 0; }
+      to { margin-left: var(--drift-x); margin-top: var(--drift-y); }
     }
 
     @keyframes heroSweep {
@@ -723,6 +979,29 @@
       .nav {
         grid-template-columns: 1fr;
       }
+
+      .detail-modal {
+        padding: 14px;
+      }
+
+      .detail-dialog {
+        max-height: 88vh;
+        padding: 58px 18px 22px;
+      }
+
+      .detail-close {
+        top: 12px;
+        right: 12px;
+      }
+
+      .detail-kicker,
+      .detail-title {
+        margin-right: 0;
+      }
+
+      .detail-title {
+        font-size: 20px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -747,6 +1026,7 @@
 
       body::before,
       body::after,
+      .cosmic-field,
       .progress {
         display: none;
       }
@@ -771,6 +1051,7 @@
   </style>
 </head>
 <body>
+  <div class="cosmic-field" id="cosmicField" aria-hidden="true"></div>
   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
 
   <div class="shell">
@@ -825,19 +1106,19 @@
           </div>
           <div class="answer">
             <div class="text-stack">
-              <div class="info-block">
+              <div class="info-block detail-card" role="button" tabindex="0" data-detail="q1-method" aria-haspopup="dialog">
                 <h3>方法</h3>
-                <p>对 Nyx 密度场进行对数归一化，将低密度区域映射为透明冷色背景，高密度纤维映射为蓝紫发光体，极高密度节点映射为金白色核心。</p>
+                <p><b>简单解释：</b>先把密度值压缩到容易观察的范围，再用透明度、颜色和发光把低密度背景、纤维结构和高密度节点区分开。</p>
               </div>
-              <div class="info-block">
+              <div class="info-block detail-card" role="button" tabindex="0" data-detail="q1-observe" aria-haspopup="dialog">
                 <h3>观察重点</h3>
                 <ul>
-                  <li>宇宙网纤维是否逐步增强。</li>
-                  <li>高密度节点是否持续聚集。</li>
-                  <li>低密度空洞与高密度骨架是否形成明显对比。</li>
+                  <li>纤维结构有没有逐渐连成网。</li>
+                  <li>高密度节点有没有变亮、变集中。</li>
+                  <li>空洞和宇宙网骨架的对比是否更明显。</li>
                 </ul>
               </div>
-              <div class="conclusion"><b>结论：</b>密度场从近均匀状态逐渐形成连续丝状结构和高亮节点，体现物质向宇宙网骨架聚集的过程。</div>
+              <div class="conclusion detail-card" role="button" tabindex="0" data-detail="q1-conclusion" aria-haspopup="dialog"><b>结论：</b>密度场从近均匀状态逐渐形成连续丝状结构和高亮节点，说明物质正在向宇宙网骨架聚集。</div>
             </div>
             <div class="video-panel">
               <video controls preload="metadata">
@@ -863,19 +1144,19 @@
           </div>
           <div class="answer">
             <div class="text-stack">
-              <div class="info-block">
+              <div class="info-block detail-card" role="button" tabindex="0" data-detail="q2-method" aria-haspopup="dialog">
                 <h3>方法</h3>
-                <p>使用统一密度标尺选择高密度候选单元，通过 Shape Key 烘焙关键时间步的半径和亮度变化，稳定展示同一批空间结构的演化过程。</p>
+                <p><b>简单解释：</b>用同一套密度标准比较多个时间步，并固定同一批空间结构，观察它们在动画中如何变亮、变粗、互相连接。</p>
               </div>
-              <div class="info-block">
+              <div class="info-block detail-card" role="button" tabindex="0" data-detail="q2-observe" aria-haspopup="dialog">
                 <h3>观察重点</h3>
                 <ul>
-                  <li>高密度区域从离散点逐渐连接为网络。</li>
-                  <li>节点与纤维交汇处不断增强。</li>
-                  <li>低密度空洞扩大，结构分化更明显。</li>
+                  <li>高密度区域是否从散点连成网络。</li>
+                  <li>节点和纤维交汇处是否持续增强。</li>
+                  <li>低密度空洞是否扩大，结构层次是否更清楚。</li>
                 </ul>
               </div>
-              <div class="conclusion"><b>结论：</b>宇宙结构呈现“节点-纤维-空洞”的层级网络，星系际介质沿宇宙网汇聚、压缩并形成致密团块。</div>
+              <div class="conclusion detail-card" role="button" tabindex="0" data-detail="q2-conclusion" aria-haspopup="dialog"><b>结论：</b>宇宙结构呈现“节点-纤维-空洞”的层级网络，星系际介质沿宇宙网汇聚并形成致密团块。</div>
             </div>
             <div class="video-panel">
               <video controls preload="metadata">
@@ -901,19 +1182,19 @@
           </div>
           <div class="answer">
             <div class="text-stack">
-              <div class="info-block">
+              <div class="info-block detail-card" role="button" tabindex="0" data-detail="q3-method" aria-haspopup="dialog">
                 <h3>方法</h3>
-                <p>统计 100 个时间步的对数密度分布，计算直方图、标准差、p99 和 p99.9 等指标，并用游标同步显示当前阶段。</p>
+                <p><b>简单解释：</b>把 100 个时间步的密度都转换成对数分布，再用直方图和高分位曲线观察整体是否越来越分散。</p>
               </div>
-              <div class="info-block">
+              <div class="info-block detail-card" role="button" tabindex="0" data-detail="q3-observe" aria-haspopup="dialog">
                 <h3>观察重点</h3>
                 <ul>
-                  <li>直方图是否从集中分布逐渐展宽。</li>
-                  <li>高分位曲线是否持续上升。</li>
-                  <li>低密度空洞和高密度尾部是否同步增强。</li>
+                  <li>直方图是否从窄峰逐渐展宽。</li>
+                  <li>p99、p99.9 等高分位是否持续上升。</li>
+                  <li>低密度空洞和高密度尾部是否同时增强。</li>
                 </ul>
               </div>
-              <div class="conclusion"><b>结论：</b>密度分布随时间明显两极化，高密度尾部增强对应致密团块形成，低密度区域扩展对应空洞演化。</div>
+              <div class="conclusion detail-card" role="button" tabindex="0" data-detail="q3-conclusion" aria-haspopup="dialog"><b>结论：</b>密度分布随时间明显两极化，高密度尾部对应致密团块形成，低密度区域扩展对应空洞演化。</div>
             </div>
             <div class="video-panel">
               <video controls preload="metadata">
@@ -939,19 +1220,19 @@
           </div>
           <div class="answer">
             <div class="text-stack">
-              <div class="info-block">
+              <div class="info-block detail-card" role="button" tabindex="0" data-detail="q4-method" aria-haspopup="dialog">
                 <h3>方法</h3>
-                <p>将密度直方图贴到旋转正方体侧面，黄色柱表示当前高密度刷选区间；空间点云同步高亮满足阈值条件的体素。</p>
+                <p><b>简单解释：</b>在直方图里选一段高密度范围，同时让三维空间里满足这个范围的体素发光，形成统计图和空间图的联动。</p>
               </div>
-              <div class="info-block">
+              <div class="info-block detail-card" role="button" tabindex="0" data-detail="q4-observe" aria-haspopup="dialog">
                 <h3>观察重点</h3>
                 <ul>
-                  <li>直方图黄柱显示当前被选中的高密度尾部。</li>
-                  <li>动态文字显示时间步、百分位区间和命中体素比例。</li>
-                  <li>阈值收紧时，高亮区域集中到宇宙网节点和致密纤维。</li>
+                  <li>黄色柱子代表当前选中的高密度范围。</li>
+                  <li>文字信息显示时间步、百分位区间和命中比例。</li>
+                  <li>阈值收紧时，高亮区域是否集中到节点和致密纤维。</li>
                 </ul>
               </div>
-              <div class="conclusion"><b>结论：</b>直方图尾部的极高密度数据并非随机噪声，而是集中出现在节点和纤维交汇处，实现统计特征与三维空间结构的联动验证。</div>
+              <div class="conclusion detail-card" role="button" tabindex="0" data-detail="q4-conclusion" aria-haspopup="dialog"><b>结论：</b>直方图尾部的极高密度数据集中出现在节点和纤维交汇处，验证了统计特征与三维空间结构的对应关系。</div>
             </div>
             <div class="video-panel">
               <video controls preload="metadata">
@@ -974,7 +1255,130 @@
     </main>
   </div>
 
+  <div class="detail-modal" id="detailModal" role="dialog" aria-modal="true" aria-labelledby="detailTitle" hidden>
+    <div class="detail-backdrop" data-close-detail></div>
+    <div class="detail-dialog" tabindex="-1">
+      <button class="detail-close" type="button" data-close-detail>关闭</button>
+      <p class="detail-kicker" id="detailKicker"></p>
+      <h2 class="detail-title" id="detailTitle"></h2>
+      <div class="detail-body" id="detailBody"></div>
+    </div>
+  </div>
+
+  <template id="detail-q1-method" data-kicker="题目 1 / 方法" data-title="体数据渲染如何把密度变化表现出来">
+    <p>Nyx 数据本质上是三维网格中的密度场，每个体素都有一个密度值。由于宇宙密度的数值跨度很大，如果直接按原始数值上色，少数极高密度点会压住其他信息，低密度区域几乎看不清。</p>
+    <p>因此这里先对密度做 log10 变换，再用全局分位数范围进行归一化。这样既能保留高密度峰值的突出感，也能让中低密度的云雾、丝状桥接结构显示出来。</p>
+    <p>传递函数采用“颜色 + 透明度 + 发光”的分层映射：低密度区域更透明，主要作为冷色背景；中高密度区域显示为蓝紫色发光纤维；极高密度节点用金白色高亮核心表现。这样观众能直接从颜色和亮度判断密度强弱。</p>
+    <p>光照方面使用深色背景、透明参考框、面积光、轮廓光和泛光效果，目的是加强空间层次，让三维结构在视频里不只是平面亮点，而是能看出前后关系和聚集方向。</p>
+  </template>
+
+  <template id="detail-q1-observe" data-kicker="题目 1 / 观察重点" data-title="观看体渲染视频时应该看什么">
+    <p>第一层要看的是整体密度场是否从均匀、分散的状态逐渐变得有组织。早期如果只有弱亮度云雾，说明物质还没有明显聚集；后期如果出现连续丝状结构，就说明宇宙网骨架正在形成。</p>
+    <p>第二层要看高密度节点。节点通常出现在多条纤维交汇的位置，如果视频中这些位置越来越亮、范围越来越稳定，就说明物质持续向引力势阱汇聚。</p>
+    <p>第三层要看低密度空洞。空洞不是“没有信息”，它反映的是物质被周围高密度结构吸走后的稀疏区域。空洞越清楚，说明密度分化越强。</p>
+    <p>因此本题的观察重点不是单个漂亮画面，而是“低密度空洞、中密度纤维、高密度节点”三者随时间共同拉开差异的过程。</p>
+  </template>
+
+  <template id="detail-q1-conclusion" data-kicker="题目 1 / 结论" data-title="体数据渲染得到的主要结论">
+    <p>从动画结果可以看出，Nyx 密度场并不是一直保持均匀分布，而是随着时间推进逐渐出现连续的丝状结构和更亮的高密度节点。</p>
+    <p>这说明物质在引力作用下沿特定方向汇聚，先形成纤维状通道，再在纤维交汇处形成密度更高的节点和团块。画面中金白色核心的增强，对应的就是极高密度区域逐步变得稳定和集中的过程。</p>
+    <p>因此，体数据渲染能够同时展示密度强弱、空间位置和时间变化，适合说明宇宙密度场由近均匀状态向“纤维-节点”宇宙网结构演化的过程。</p>
+  </template>
+
+  <template id="detail-q2-method" data-kicker="题目 2 / 方法" data-title="结构演化规律如何被归纳出来">
+    <p>题目 2 的重点不只是展示某一个时间步，而是比较同一批空间结构在多个时间步中的变化。为了让比较更稳定，视频采用统一的对数密度标尺，避免每一帧都按自己的最大值重新映射而造成误判。</p>
+    <p>实现上先读取不同时间步的三维密度场，并用相同的阈值逻辑选出高密度候选区域。随后在 Blender 中用固定候选点云表示这些位置，再通过 Shape Key 烘焙半径、亮度和显示强度的变化。</p>
+    <p>这样做的好处是：观众看到的是同一组空间位置随时间的增强或减弱，而不是每一帧随机替换的点。空间拓扑保持稳定后，结构形成过程会更容易被观察和归纳。</p>
+    <p>因此，本题的可视化方法服务于“演化比较”：它把复杂的三维体数据整理成可跟踪的节点、纤维和空洞结构。</p>
+  </template>
+
+  <template id="detail-q2-observe" data-kicker="题目 2 / 观察重点" data-title="从结构动画中归纳哪些规律">
+    <p>首先观察高密度区域是否从离散斑块逐渐连接成网络。早期的亮点如果彼此孤立，说明结构尚未充分形成；后期亮点被拉伸并连接成线状或网状，说明宇宙网开始清晰。</p>
+    <p>其次观察纤维交汇处。多条纤维相交的位置如果持续变亮、变粗，往往代表更强的物质汇聚区，也可能对应星系团或强吸收结构的候选位置。</p>
+    <p>还要观察低密度空洞是否扩大。空洞扩大意味着物质从稀疏区域向周围骨架迁移，最终让“空洞-纤维-节点”的层级关系更明显。</p>
+    <p>这三项放在一起，可以把宇宙结构形成理解为：物质先出现局部聚集，再沿纤维输运，最后在节点处形成更致密的团块。</p>
+  </template>
+
+  <template id="detail-q2-conclusion" data-kicker="题目 2 / 结论" data-title="结构演化揭示的宇宙学意义">
+    <p>视频显示宇宙结构整体呈现“空洞-纤维-节点”的层级网络。低密度区域逐渐被排空，高密度区域沿纤维连接，并在交汇处形成稳定节点。</p>
+    <p>这说明星系际介质不是均匀扩散的，而是在暗物质引力作用下沿宇宙网骨架被输运、压缩和聚集。纤维像物质流动的通道，节点则像物质汇聚的核心。</p>
+    <p>可视化的价值在于把三维空间结构和时间演化放到同一个画面中，帮助快速识别结构形成阶段、定位致密节点和纤维通道，并为后续定量统计提供直观依据。</p>
+  </template>
+
+  <template id="detail-q3-method" data-kicker="题目 3 / 方法" data-title="如何用统计图追踪 100 个时间步">
+    <p>题目 3 从全域统计角度分析密度变化。每个时间步都先读取为 128^3 的三维体数据，再进行采样和 log10 变换，得到更适合比较的对数密度值。</p>
+    <p>随后为每个时间步构建密度对数直方图，用来观察全体体素的分布形状。直方图如果集中，说明大部分区域密度接近；直方图如果展宽，说明密度差异正在扩大。</p>
+    <p>除了直方图，还计算标准差、p99、p99.9 和全局 Top 1% 阈值占比。标准差反映整体波动幅度，高分位指标反映最密集那一小部分体素是否持续增强。</p>
+    <p>动画中使用游标同步显示当前时间步，让观众能够把“分布形状变化”和“指标曲线变化”对应起来，形成时间序列上的连续判断。</p>
+  </template>
+
+  <template id="detail-q3-observe" data-kicker="题目 3 / 观察重点" data-title="统计动画中最重要的变化">
+    <p>第一要看直方图是否展宽。早期直方图集中在较窄区间，代表物质分布比较均匀；后期两端拉开，代表低密度区域和高密度区域同时增多。</p>
+    <p>第二要看高分位曲线，尤其是 p99 和 p99.9。如果这些曲线持续上升，说明最密集的一小部分体素正在变得更极端，对应致密团块和节点的形成。</p>
+    <p>第三要看低密度端的变化。低密度区域增强说明空洞在扩大，它和高密度尾部增强是同一个演化过程的两面：物质从空洞区域流向纤维和节点。</p>
+    <p>所以本题不是只看“平均密度”，而是看整个分布如何从单峰集中走向两极分化。</p>
+  </template>
+
+  <template id="detail-q3-conclusion" data-kicker="题目 3 / 结论" data-title="时序统计证明了什么">
+    <p>统计结果表明，Nyx 密度场随时间从相对均匀逐渐走向团块化。直方图展宽说明密度波动幅度变大，高密度尾部增长说明极端致密结构在增强。</p>
+    <p>与此同时，低密度端也在增强，说明宇宙空洞逐渐形成并扩大。高密度节点增强和低密度空洞扩大并不是两个孤立现象，而是物质重新分配后的共同结果。</p>
+    <p>因此，对数直方图提供了全局分布视角，高分位曲线提供了极端结构的定量证据。二者共同证明暗物质引力持续驱动物质聚集坍缩，形成低密度空洞与高密度峰值并存的大尺度结构。</p>
+  </template>
+
+  <template id="detail-q4-method" data-kicker="题目 4 / 方法" data-title="联动筛选仪表盘怎样工作">
+    <p>题目 4 的核心是把统计视图和三维空间视图绑定起来。左侧直方图显示当前时间步的密度分布，黄色阈值窗口表示用户在相空间中选中的高密度范围。</p>
+    <p>右侧三维空间视图同步高亮满足该阈值范围的体素。也就是说，直方图里选到哪一段密度，空间里就显示这些密度值实际位于宇宙结构中的什么位置。</p>
+    <p>为了让视频展示稳定，脚本把多个关键时间步和阈值变化预先烘焙为动画状态：当黄色筛选窗口移动或收紧时，对应体素在三维空间中同步变亮、变大或消失。</p>
+    <p>这种设计模拟了交互刷选的分析过程，让观众看到“统计分布中的尾部”与“空间中的物理结构”之间的对应关系。</p>
+  </template>
+
+  <template id="detail-q4-observe" data-kicker="题目 4 / 观察重点" data-title="联动筛选时应该验证什么">
+    <p>首先观察黄色柱子所在的位置。它表示当前被选中的密度区间，越靠近直方图右侧，代表筛选的是越极端的高密度尾部。</p>
+    <p>其次观察命中体素比例。筛选范围宽时，空间中会出现较多高亮点；筛选范围收紧到 Top 1% 附近时，命中体素明显减少，但物理意义更集中。</p>
+    <p>最关键的是看高亮体素是否随机分散。如果它们集中在纤维交汇处、节点和致密团块附近，就说明直方图右侧尾部对应真实的宇宙网结构，而不是随机噪声。</p>
+    <p>这一步完成的是双向验证：从统计图找到异常高密度，再回到三维空间确认它们的物理位置。</p>
+  </template>
+
+  <template id="detail-q4-conclusion" data-kicker="题目 4 / 结论" data-title="联动筛选得到的验证结果">
+    <p>联动筛选结果表明，直方图右侧的极高密度尾部并不是随机出现的离散噪声，而是集中分布在宇宙网节点、纤维交汇处和局部致密团块区域。</p>
+    <p>当筛选区间逐步收紧到更高百分位时，高亮区域会明显收缩到少数核心节点。这说明越极端的高密度值，越可能对应宇宙结构中物理意义更强的汇聚位置。</p>
+    <p>因此，联动刷选实现了统计特征与空间结构的对应验证：直方图负责发现高密度尾部，三维视图负责解释这些尾部数据在真实空间中的位置和结构意义。</p>
+  </template>
+
   <script>
+    function buildCosmicField() {
+      const field = document.getElementById("cosmicField");
+      if (!field) return;
+
+      const starCount = window.matchMedia("(max-width: 640px)").matches ? 70 : 128;
+      field.replaceChildren();
+
+      for (let i = 0; i < starCount; i += 1) {
+        const star = document.createElement("span");
+        const size = 1 + Math.random() * (i % 9 === 0 ? 2.8 : 1.7);
+        const hue = [42, 196, 210, 226, 258][Math.floor(Math.random() * 5)];
+        const peak = 0.54 + Math.random() * 0.44;
+        const mid = 0.18 + Math.random() * 0.38;
+
+        star.className = `star${size > 2.4 ? " is-bright" : ""}`;
+        star.style.setProperty("--left", `${Math.random() * 100}%`);
+        star.style.setProperty("--top", `${Math.random() * 100}%`);
+        star.style.setProperty("--size", `${size.toFixed(2)}px`);
+        star.style.setProperty("--hue", hue);
+        star.style.setProperty("--light", `${74 + Math.random() * 16}%`);
+        star.style.setProperty("--peak", peak.toFixed(2));
+        star.style.setProperty("--mid", mid.toFixed(2));
+        star.style.setProperty("--late", (peak * 0.82).toFixed(2));
+        star.style.setProperty("--duration", `${4.8 + Math.random() * 8.5}s`);
+        star.style.setProperty("--float-duration", `${28 + Math.random() * 34}s`);
+        star.style.setProperty("--delay", `${-Math.random() * 10}s`);
+        star.style.setProperty("--drift-x", `${(Math.random() - 0.5) * 26}px`);
+        star.style.setProperty("--drift-y", `${(Math.random() - 0.5) * 22}px`);
+        star.style.setProperty("--flare-rotation", `${Math.random() * 180}deg`);
+        field.appendChild(star);
+      }
+    }
+
     function pauseAllVideos() {
       document.querySelectorAll("video").forEach((video) => video.pause());
     }
@@ -991,6 +1395,12 @@
     const navLinks = Array.from(document.querySelectorAll(".nav a[href^='#']"));
     const summaryItems = Array.from(document.querySelectorAll(".summary-item[data-target]"));
     const questionSections = Array.from(document.querySelectorAll(".question"));
+    const detailModal = document.getElementById("detailModal");
+    const detailDialog = detailModal.querySelector(".detail-dialog");
+    const detailKicker = document.getElementById("detailKicker");
+    const detailTitle = document.getElementById("detailTitle");
+    const detailBody = document.getElementById("detailBody");
+    let lastDetailTrigger = null;
 
     function clearActiveStates() {
       navLinks.forEach((link) => link.classList.remove("is-active"));
@@ -1079,6 +1489,48 @@
       });
     });
 
+    function openDetail(detailId, trigger) {
+      const template = document.getElementById(`detail-${detailId}`);
+      if (!template) return;
+
+      lastDetailTrigger = trigger || null;
+      detailKicker.textContent = template.dataset.kicker || "详细解释";
+      detailTitle.textContent = template.dataset.title || "详细解释";
+      detailBody.replaceChildren(template.content.cloneNode(true));
+      detailModal.hidden = false;
+      document.body.classList.add("modal-open");
+      pauseAllVideos();
+      window.setTimeout(() => detailDialog.focus(), 0);
+    }
+
+    function closeDetail() {
+      if (detailModal.hidden) return;
+      detailModal.hidden = true;
+      document.body.classList.remove("modal-open");
+      detailBody.replaceChildren();
+      if (lastDetailTrigger) lastDetailTrigger.focus();
+      lastDetailTrigger = null;
+    }
+
+    document.querySelectorAll(".detail-card[data-detail]").forEach((card) => {
+      const run = () => openDetail(card.dataset.detail, card);
+      card.addEventListener("click", run);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          run();
+        }
+      });
+    });
+
+    document.querySelectorAll("[data-close-detail]").forEach((control) => {
+      control.addEventListener("click", closeDetail);
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeDetail();
+    });
+
     questionSections.forEach((section) => {
       section.addEventListener("mousemove", (event) => {
         const rect = section.getBoundingClientRect();
@@ -1120,9 +1572,14 @@
       progressBar.style.width = `${progress}%`;
     }
 
+    buildCosmicField();
     updateProgress();
     window.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
+    window.addEventListener("resize", () => {
+      updateProgress();
+      window.clearTimeout(window.cosmicResizeTimer);
+      window.cosmicResizeTimer = window.setTimeout(buildCosmicField, 180);
+    });
   </script>
 </body>
 </html>

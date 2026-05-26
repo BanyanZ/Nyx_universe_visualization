@@ -13,7 +13,7 @@ from mathutils import Vector
 
 
 # 固定到本项目文件夹；在 Blender 里直接粘贴运行时也能找到数据。
-PROJECT_DIR = r"C:\Users\Lenovo\Desktop\可视化大作业"
+PROJECT_DIR = r"C:\Users\Lenovo\Desktop\Nyx宇宙学数据可视化"
 
 
 def resolve_base_dir():
