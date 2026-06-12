@@ -43,7 +43,9 @@ body {
 
 #page-root,
 #slide-container,
-.slidev-slide-container {
+.slidev-slide-container,
+#slide-content,
+.slidev-slide-content {
   background: transparent !important;
   background-color: transparent !important;
 }
