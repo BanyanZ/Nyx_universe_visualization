@@ -32,22 +32,22 @@ class: steps-slide
 ## 我们在做什么
 
 <div class="flow">
-  <div class="flow-step glass">
+  <div class="flow-step flow-step-1 glass">
     <b class="pulse-text">读入宇宙密度场</b>
     <p>每个 `.dat` 文件是一个 128×128×128 的 float32 体数据，代表一个时间步的三维密度分布。</p>
   </div>
-  <div v-click="1" class="flow-arrow">→</div>
-  <div v-click="1" class="flow-step glass">
+  <div v-click="1" class="flow-arrow flow-arrow-1">→</div>
+  <div v-click="1" class="flow-step flow-step-2 glass">
     <b class="pulse-text">构建可视化管线</b>
     <p>把原始数值转换成体渲染、投影图、直方图、脊线图和统计演化曲线。</p>
   </div>
-  <div v-click="2" class="flow-arrow">→</div>
-  <div v-click="2" class="flow-step glass">
+  <div v-click="2" class="flow-arrow flow-arrow-2">↴</div>
+  <div v-click="2" class="flow-step flow-step-3 glass">
     <b class="pulse-text">提取结构和规律</b>
     <p>用均值、标准差、偏度、峰度、P99 等指标观察高密度节点和丝状结构的演化。</p>
   </div>
-  <div v-click="3" class="flow-arrow">→</div>
-  <div v-click="3" class="flow-step glass">
+  <div v-click="3" class="flow-arrow flow-arrow-3">←</div>
+  <div v-click="3" class="flow-step flow-step-4 glass">
     <b class="pulse-text">做成可展示系统</b>
     <p>最终交付网页、视频、Slidev 演示和可交互仪表板，适合答辩现场讲解。</p>
   </div>

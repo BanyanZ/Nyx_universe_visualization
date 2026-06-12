@@ -220,10 +220,12 @@ a {
 
 .flow {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 52px minmax(0, 1fr) 52px minmax(0, 1fr) 52px minmax(0, 1fr);
-  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) 92px minmax(0, 1fr);
+  grid-template-rows: auto 76px auto;
+  gap: 12px 22px;
   align-items: center;
-  margin-top: 32px;
+  width: min(100%, 1180px);
+  margin-top: 28px;
 }
 
 .flow-step {
@@ -254,12 +256,49 @@ a {
 .flow-arrow {
   align-self: center;
   color: var(--nyx-cyan);
-  font-size: 46px;
+  font-size: 54px;
   font-weight: 900;
   line-height: 1;
   text-align: center;
   text-shadow: 0 0 18px rgba(111, 247, 223, 0.82), 0 0 40px rgba(69, 183, 255, 0.36);
   animation: arrow-pulse 1.45s ease-in-out infinite;
+}
+
+.flow-step-1 {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.flow-step-2 {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.flow-step-3 {
+  grid-column: 3;
+  grid-row: 3;
+}
+
+.flow-step-4 {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+.flow-arrow-1 {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.flow-arrow-2 {
+  grid-column: 3;
+  grid-row: 2;
+  align-self: center;
+  justify-self: center;
+}
+
+.flow-arrow-3 {
+  grid-column: 2;
+  grid-row: 3;
 }
 
 .pulse-text {
@@ -282,11 +321,11 @@ a {
   0%,
   100% {
     opacity: 0.62;
-    transform: translateX(-4px) scale(0.96);
+    transform: translateY(-2px) scale(0.96);
   }
   50% {
     opacity: 1;
-    transform: translateX(4px) scale(1.08);
+    transform: translateY(2px) scale(1.08);
   }
 }
 
