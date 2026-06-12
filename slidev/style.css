@@ -14,6 +14,7 @@ body,
 #app {
   min-height: 100%;
   color: var(--nyx-ink);
+  background-color: #02030a;
 }
 
 html,
@@ -31,12 +32,35 @@ body {
   z-index: 0;
   width: 100vw;
   height: 100vh;
+  background: #02030a;
   pointer-events: none;
 }
 
 #app {
   position: relative;
   z-index: 1;
+}
+
+#page-root,
+#slide-container,
+.slidev-slide-container {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+html,
+body {
+  background:
+    radial-gradient(circle at 16% 14%, rgba(85, 133, 255, 0.28), transparent 28%),
+    radial-gradient(circle at 84% 20%, rgba(255, 79, 139, 0.22), transparent 26%),
+    radial-gradient(circle at 56% 82%, rgba(111, 247, 223, 0.16), transparent 30%),
+    linear-gradient(135deg, #03040c 0%, #0a1031 42%, #1c0b35 72%, #050713 100%) !important;
+}
+
+#app,
+#page-root {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 .slidev-layout {

@@ -187,7 +187,14 @@ function drawCosmos(time = 0) {
   if (!canvas || !ctx)
     return
 
-  ctx.clearRect(0, 0, width, height)
+  const backdrop = ctx.createLinearGradient(0, 0, width, height)
+  backdrop.addColorStop(0, '#02030a')
+  backdrop.addColorStop(0.42, '#071034')
+  backdrop.addColorStop(0.72, '#170828')
+  backdrop.addColorStop(1, '#03040c')
+  ctx.fillStyle = backdrop
+  ctx.fillRect(0, 0, width, height)
+
   const driftX = (pointerX - 0.5) * 28
   const driftY = (pointerY - 0.5) * 20
 
