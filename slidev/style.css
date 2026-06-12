@@ -155,8 +155,7 @@ h3 {
 strong,
 b,
 .stat b,
-.chart-title,
-.pill {
+.chart-title {
   background: var(--nyx-rainbow-hot);
   background-size: 180% 100%;
   -webkit-background-clip: text;
@@ -564,8 +563,11 @@ a {
   border: 1px solid rgba(111, 247, 223, 0.35);
   border-radius: 999px;
   background: rgba(111, 247, 223, 0.05);
-  color: #ddfffb;
+  color: #f4fffd;
+  -webkit-text-fill-color: #f4fffd;
+  text-shadow: 0 0 12px rgba(111, 247, 223, 0.55);
   font-size: 14px;
+  font-weight: 800;
 }
 
 .small-note {
