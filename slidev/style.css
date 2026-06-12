@@ -7,6 +7,8 @@
   --nyx-pink: #ff4f8b;
   --nyx-gold: #ffd166;
   --nyx-violet: #8d5cff;
+  --nyx-rainbow: linear-gradient(92deg, #ffffff 0%, #6ff7df 22%, #45b7ff 42%, #8d5cff 62%, #ff4f8b 82%, #ffd166 100%);
+  --nyx-rainbow-hot: linear-gradient(100deg, #6ff7df 0%, #45b7ff 24%, #8d5cff 48%, #ff4f8b 72%, #ffd166 100%);
 }
 
 html,
@@ -69,6 +71,7 @@ body {
   position: relative;
   overflow: hidden;
   padding: 42px 54px;
+  box-sizing: border-box;
   font-family: "Inter", "Segoe UI", "Microsoft YaHei", sans-serif;
   background: transparent !important;
 }
@@ -109,19 +112,58 @@ body {
 h1,
 h2,
 h3 {
-  color: #fff;
+  width: fit-content;
+  max-width: 100%;
+  padding-bottom: 0.13em;
+  color: transparent;
   letter-spacing: 0;
   font-weight: 800;
+  background: var(--nyx-rainbow);
+  background-size: 180% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 14px 42px rgba(111, 247, 223, 0.16);
+  animation: rainbow-shift 7s ease-in-out infinite;
 }
 
 h1 {
   max-width: 930px;
   font-size: 62px;
-  line-height: 1.03;
+  line-height: 1.16;
 }
 
 h2 {
   font-size: 42px;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+strong,
+b,
+.stat b,
+.chart-title,
+.pill {
+  background: var(--nyx-rainbow-hot);
+  background-size: 180% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: rainbow-shift 6s ease-in-out infinite;
+}
+
+@keyframes rainbow-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
 }
 
 p,
@@ -134,11 +176,17 @@ a {
 }
 
 .kicker {
-  color: var(--nyx-cyan);
+  width: fit-content;
+  color: transparent;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  background: linear-gradient(90deg, var(--nyx-cyan), var(--nyx-gold), var(--nyx-pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 24px rgba(111, 247, 223, 0.35);
 }
 
 .deck-subtitle {
@@ -162,11 +210,13 @@ a {
   color: transparent;
   font-weight: 900;
   letter-spacing: 0;
-  background: linear-gradient(92deg, #ffffff 0%, var(--nyx-cyan) 34%, var(--nyx-gold) 68%, var(--nyx-pink) 100%);
+  background: var(--nyx-rainbow);
+  background-size: 180% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 12px 34px rgba(111, 247, 223, 0.18);
+  animation: rainbow-shift 7s ease-in-out infinite;
 }
 
 .ppt-author {
@@ -199,7 +249,6 @@ a {
 
 .metric strong {
   display: block;
-  color: #fff;
   font-size: 30px;
   line-height: 1.1;
 }
@@ -219,86 +268,105 @@ a {
 }
 
 .flow {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 92px minmax(0, 1fr);
-  grid-template-rows: auto 76px auto;
-  gap: 12px 22px;
-  align-items: center;
-  width: min(100%, 1180px);
-  margin-top: 28px;
+  position: relative;
+  width: min(100%, 1120px);
+  height: 438px;
+  margin: 20px auto 0;
 }
 
 .flow-step {
-  min-height: 178px;
-  padding: 20px;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  position: absolute;
+  z-index: 2;
+  width: 390px;
+  min-height: 142px;
+  padding: 17px 20px 17px 74px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(7, 12, 30, 0.7), rgba(10, 16, 49, 0.46)),
+    radial-gradient(circle at 18% 22%, rgba(111, 247, 223, 0.2), transparent 35%);
+  box-shadow: 0 18px 62px rgba(0, 0, 0, 0.32), inset 0 0 22px rgba(111, 247, 223, 0.05);
+  backdrop-filter: blur(10px);
+  transform-origin: center;
+  animation: node-pop 0.68s cubic-bezier(0.18, 0.9, 0.22, 1.18) both, node-breathe 2.2s ease-in-out 0.68s infinite;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
 }
 
 .flow-step:hover {
-  transform: translateY(-4px);
   border-color: rgba(111, 247, 223, 0.42);
   box-shadow: 0 24px 92px rgba(111, 247, 223, 0.14), 0 18px 70px rgba(0, 0, 0, 0.4);
 }
 
 .flow-step b {
   display: block;
-  margin-bottom: 12px;
-  color: #fff;
-  font-size: 21px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  line-height: 1.15;
 }
 
 .flow-step p {
   margin: 0;
-  font-size: 15px;
-  line-height: 1.48;
+  font-size: 14px;
+  line-height: 1.42;
 }
 
-.flow-arrow {
-  align-self: center;
+.flow-index {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(111, 247, 223, 0.45);
+  border-radius: 50%;
   color: var(--nyx-cyan);
-  font-size: 54px;
+  font-size: 15px;
   font-weight: 900;
-  line-height: 1;
-  text-align: center;
-  text-shadow: 0 0 18px rgba(111, 247, 223, 0.82), 0 0 40px rgba(69, 183, 255, 0.36);
-  animation: arrow-pulse 1.45s ease-in-out infinite;
+  text-shadow: 0 0 16px rgba(111, 247, 223, 0.75);
+  box-shadow: 0 0 26px rgba(111, 247, 223, 0.18), inset 0 0 18px rgba(111, 247, 223, 0.14);
+  animation: index-flash 1.15s ease-in-out infinite;
+}
+
+.flow-path {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: visible;
+  filter: drop-shadow(0 0 18px rgba(111, 247, 223, 0.55));
+}
+
+.flow-segment {
+  fill: none;
+  stroke: rgba(111, 247, 223, 0.9);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 24 18;
+  animation: path-flow 0.85s linear infinite, path-glow 1.4s ease-in-out infinite;
+}
+
+.flow-head {
+  fill: rgba(111, 247, 223, 0.95);
 }
 
 .flow-step-1 {
-  grid-column: 1;
-  grid-row: 1;
+  top: 10px;
+  left: 68px;
 }
 
 .flow-step-2 {
-  grid-column: 3;
-  grid-row: 1;
+  top: 10px;
+  right: 68px;
 }
 
 .flow-step-3 {
-  grid-column: 3;
-  grid-row: 3;
+  right: 68px;
+  bottom: 10px;
 }
 
 .flow-step-4 {
-  grid-column: 1;
-  grid-row: 3;
-}
-
-.flow-arrow-1 {
-  grid-column: 2;
-  grid-row: 1;
-}
-
-.flow-arrow-2 {
-  grid-column: 3;
-  grid-row: 2;
-  align-self: center;
-  justify-self: center;
-}
-
-.flow-arrow-3 {
-  grid-column: 2;
-  grid-row: 3;
+  bottom: 10px;
+  left: 68px;
 }
 
 .pulse-text {
@@ -317,15 +385,59 @@ a {
   }
 }
 
-@keyframes arrow-pulse {
+@keyframes node-pop {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes node-breathe {
   0%,
   100% {
-    opacity: 0.62;
-    transform: translateY(-2px) scale(0.96);
+    box-shadow: 0 18px 62px rgba(0, 0, 0, 0.32), 0 0 18px rgba(111, 247, 223, 0.05), inset 0 0 22px rgba(111, 247, 223, 0.05);
+  }
+  50% {
+    box-shadow: 0 18px 62px rgba(0, 0, 0, 0.32), 0 0 34px rgba(111, 247, 223, 0.22), inset 0 0 26px rgba(111, 247, 223, 0.1);
+  }
+}
+
+@keyframes index-flash {
+  0%,
+  100% {
+    color: #fff;
+    border-color: rgba(111, 247, 223, 0.38);
+    transform: scale(0.96);
+  }
+  50% {
+    color: var(--nyx-gold);
+    border-color: rgba(255, 209, 102, 0.7);
+    transform: scale(1.08);
+  }
+}
+
+@keyframes path-flow {
+  from {
+    stroke-dashoffset: 42;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes path-glow {
+  0%,
+  100% {
+    opacity: 0.58;
+    stroke-width: 5;
   }
   50% {
     opacity: 1;
-    transform: translateY(2px) scale(1.08);
+    stroke-width: 8;
   }
 }
 
@@ -354,8 +466,33 @@ a {
   font-size: 14px;
 }
 
+.steps-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px 70px 40px;
+}
+
+.steps-slide .kicker,
+.steps-slide h2 {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.steps-slide h2 {
+  margin-top: 8px;
+  margin-bottom: -4px;
+  font-size: 44px;
+  line-height: 1.24;
+  padding-bottom: 0.18em;
+}
+
 .slidev-layout.works-slide {
-  padding: 38px 76px 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 76px 48px;
 }
 
 .works-slide .kicker {
@@ -370,10 +507,10 @@ a {
 }
 
 .works-slide .video-grid {
-  width: min(90%, 1260px);
-  max-height: 720px;
-  margin: 22px auto 0;
-  gap: 18px;
+  width: min(86%, 1160px);
+  max-height: 640px;
+  margin: 18px auto 0;
+  gap: 16px;
 }
 
 .works-slide .video-card {
@@ -381,7 +518,7 @@ a {
 }
 
 .works-slide .video-card video {
-  height: 260px;
+  height: 222px;
   aspect-ratio: auto;
   object-fit: contain;
 }

@@ -8,6 +8,7 @@ let canvas = null
 let ctx = null
 let frameId = 0
 let stars = []
+let bursts = []
 let pointerX = 0
 let pointerY = 0
 let width = 0
@@ -157,6 +158,39 @@ function onWheel(event) {
 
 let observer = null
 
+function makeGalaxyBurst(x, y) {
+  const now = performance.now()
+  const palette = [
+    '111, 247, 223',
+    '69, 183, 255',
+    '141, 92, 255',
+    '255, 79, 139',
+    '255, 209, 102',
+  ]
+  const tilt = Math.random() * Math.PI
+  const spin = Math.random() > 0.5 ? 1 : -1
+  const particles = Array.from({ length: 56 }, (_, i) => {
+    const arm = i % 3
+    const orbit = i / 56
+    const angle = tilt + arm * ((Math.PI * 2) / 3) + orbit * Math.PI * 2.1 + (Math.random() - 0.5) * 0.48
+    const radius = 7 + orbit * 68 + Math.random() * 16
+    const speed = 0.5 + Math.random() * 1.65
+    return {
+      angle,
+      radius,
+      speed,
+      spin: spin * (0.0028 + Math.random() * 0.0048),
+      size: 1.2 + Math.random() * 2.9,
+      alpha: 0.58 + Math.random() * 0.36,
+      hue: palette[i % palette.length],
+      stretch: 0.42 + Math.random() * 0.34,
+    }
+  })
+  bursts.push({ x, y, born: now, life: 1180, particles })
+  if (bursts.length > 10)
+    bursts.splice(0, bursts.length - 10)
+}
+
 function resizeCosmos() {
   if (!canvas || !ctx)
     return
@@ -246,6 +280,55 @@ function drawCosmos(time = 0) {
     }
   }
 
+  const now = performance.now()
+  bursts = bursts.filter(burst => now - burst.born < burst.life)
+  for (const burst of bursts) {
+    const age = now - burst.born
+    const t = Math.min(1, age / burst.life)
+    const easeOut = 1 - (1 - t) ** 3
+    const fade = (1 - t) ** 1.45
+    const coreSize = 22 + easeOut * 48
+
+    const core = ctx.createRadialGradient(burst.x, burst.y, 0, burst.x, burst.y, coreSize)
+    core.addColorStop(0, `rgba(255, 255, 255, ${0.58 * fade})`)
+    core.addColorStop(0.22, `rgba(111, 247, 223, ${0.34 * fade})`)
+    core.addColorStop(0.55, `rgba(141, 92, 255, ${0.16 * fade})`)
+    core.addColorStop(1, 'rgba(0, 0, 0, 0)')
+    ctx.fillStyle = core
+    ctx.beginPath()
+    ctx.arc(burst.x, burst.y, coreSize, 0, Math.PI * 2)
+    ctx.fill()
+
+    ctx.save()
+    ctx.globalCompositeOperation = 'lighter'
+    for (const particle of burst.particles) {
+      const angle = particle.angle + age * particle.spin
+      const radius = particle.radius * (0.35 + easeOut * particle.speed)
+      const wobble = Math.sin(age * 0.012 + particle.radius) * 4 * fade
+      const x = burst.x + Math.cos(angle) * radius
+      const y = burst.y + Math.sin(angle) * radius * particle.stretch + wobble
+      const alpha = particle.alpha * fade
+      const tailX = x - Math.cos(angle + Math.PI / 2) * (7 + particle.size * 2) * fade
+      const tailY = y - Math.sin(angle + Math.PI / 2) * (7 + particle.size * 2) * fade
+
+      const trail = ctx.createLinearGradient(tailX, tailY, x, y)
+      trail.addColorStop(0, `rgba(${particle.hue}, 0)`)
+      trail.addColorStop(1, `rgba(${particle.hue}, ${alpha * 0.62})`)
+      ctx.strokeStyle = trail
+      ctx.lineWidth = particle.size * 0.8
+      ctx.beginPath()
+      ctx.moveTo(tailX, tailY)
+      ctx.lineTo(x, y)
+      ctx.stroke()
+
+      ctx.fillStyle = `rgba(${particle.hue}, ${alpha})`
+      ctx.beginPath()
+      ctx.arc(x, y, particle.size * (0.7 + fade * 0.35), 0, Math.PI * 2)
+      ctx.fill()
+    }
+    ctx.restore()
+  }
+
   frameId = requestAnimationFrame(drawCosmos)
 }
 
@@ -264,6 +347,14 @@ function onPointerMove(event) {
   pointerY = event.clientY / Math.max(window.innerHeight, 1)
 }
 
+function onPointerDown(event) {
+  if (event.button !== 0)
+    return
+  if (isInteractiveTarget(event.target))
+    return
+  makeGalaxyBurst(event.clientX, event.clientY)
+}
+
 onMounted(() => {
   mountCosmos()
   wireGotoDrag()
@@ -273,6 +364,7 @@ onMounted(() => {
   window.addEventListener('wheel', onWheel, { passive: false })
   window.addEventListener('resize', resizeCosmos)
   window.addEventListener('pointermove', onPointerMove, { passive: true })
+  window.addEventListener('pointerdown', onPointerDown, { passive: true })
 })
 
 onUnmounted(() => {
@@ -286,6 +378,7 @@ onUnmounted(() => {
   window.removeEventListener('wheel', onWheel)
   window.removeEventListener('resize', resizeCosmos)
   window.removeEventListener('pointermove', onPointerMove)
+  window.removeEventListener('pointerdown', onPointerDown)
 })
 </script>
 

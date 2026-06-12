@@ -32,22 +32,33 @@ class: steps-slide
 ## 我们在做什么
 
 <div class="flow">
-  <div class="flow-step flow-step-1 glass">
+  <svg class="flow-path" viewBox="0 0 1180 500" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <marker id="flow-head" markerWidth="13" markerHeight="13" refX="10" refY="6.5" orient="auto">
+        <path d="M 0 0 L 13 6.5 L 0 13 z" class="flow-head" />
+      </marker>
+    </defs>
+    <path v-click="2" class="flow-segment flow-segment-1" d="M 252 104 C 408 44, 552 44, 708 104" marker-end="url(#flow-head)" />
+    <path v-click="3" class="flow-segment flow-segment-2" d="M 928 142 C 1052 214, 1052 286, 928 358" marker-end="url(#flow-head)" />
+    <path v-click="4" class="flow-segment flow-segment-3" d="M 708 396 C 552 456, 408 456, 252 396" marker-end="url(#flow-head)" />
+  </svg>
+  <div v-click="1" class="flow-step flow-step-1">
+    <span class="flow-index">01</span>
     <b class="pulse-text">读入宇宙密度场</b>
     <p>每个 `.dat` 文件是一个 128×128×128 的 float32 体数据，代表一个时间步的三维密度分布。</p>
   </div>
-  <div v-click="1" class="flow-arrow flow-arrow-1">→</div>
-  <div v-click="1" class="flow-step flow-step-2 glass">
+  <div v-click="2" class="flow-step flow-step-2">
+    <span class="flow-index">02</span>
     <b class="pulse-text">构建可视化管线</b>
     <p>把原始数值转换成体渲染、投影图、直方图、脊线图和统计演化曲线。</p>
   </div>
-  <div v-click="2" class="flow-arrow flow-arrow-2">↴</div>
-  <div v-click="2" class="flow-step flow-step-3 glass">
+  <div v-click="3" class="flow-step flow-step-3">
+    <span class="flow-index">03</span>
     <b class="pulse-text">提取结构和规律</b>
     <p>用均值、标准差、偏度、峰度、P99 等指标观察高密度节点和丝状结构的演化。</p>
   </div>
-  <div v-click="3" class="flow-arrow flow-arrow-3">←</div>
-  <div v-click="3" class="flow-step flow-step-4 glass">
+  <div v-click="4" class="flow-step flow-step-4">
+    <span class="flow-index">04</span>
     <b class="pulse-text">做成可展示系统</b>
     <p>最终交付网页、视频、Slidev 演示和可交互仪表板，适合答辩现场讲解。</p>
   </div>
@@ -95,19 +106,19 @@ class: works-slide
 
 <div class="video-grid">
   <div class="video-card glass">
-    <video controls loop muted :src="'/Nyx_universe_visualization/Nyx_01_volume_animation.mp4'"></video>
+    <video controls loop muted :src="'Nyx_01_volume_animation.mp4'"></video>
     <div>任务 1：Nyx 密度场三维体素 / 粒子动画</div>
   </div>
   <div class="video-card glass">
-    <video controls loop muted :src="'/Nyx_universe_visualization/Nyx_02_structure_evolution.mp4'"></video>
+    <video controls loop muted :src="'Nyx_02_structure_evolution.mp4'"></video>
     <div>任务 2：固定拓扑结构的时间演化展示</div>
   </div>
   <div class="video-card glass">
-    <video controls loop muted :src="'/Nyx_universe_visualization/Nyx_03_timeseries_statistics.mp4'"></video>
+    <video controls loop muted :src="'Nyx_03_timeseries_statistics.mp4'"></video>
     <div>任务 3：时序统计与分布变化分析</div>
   </div>
   <div class="video-card glass">
-    <video controls loop muted :src="'/Nyx_universe_visualization/Nyx_04_linked_selection_dashboard.mp4'"></video>
+    <video controls loop muted :src="'Nyx_04_linked_selection_dashboard.mp4'"></video>
     <div>任务 4：联动筛选仪表板与空间高亮</div>
   </div>
 </div>
@@ -147,10 +158,10 @@ class: works-slide
 
 ## 原前端网页入口
 
-<iframe class="embed-frame glass" :src="'/Nyx_universe_visualization/nyx-original-showcase.html'"></iframe>
+<iframe class="embed-frame glass" :src="'nyx-original-showcase.html'"></iframe>
 
 <div class="link-row">
-  <a class="pill" :href="'/Nyx_universe_visualization/nyx-original-showcase.html'" target="_blank">打开原网页展示</a>
+  <a class="pill" :href="'nyx-original-showcase.html'" target="_blank">打开原网页展示</a>
   <span class="small-note">这个页面已经搬到 Slidev 的 public 目录，视频资源也在同一站点内。</span>
 </div>
 
