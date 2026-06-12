@@ -1,0 +1,21 @@
+{
+  "name": "nyx-cosmic-slidev",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --port 3030",
+    "lan": "slidev --remote nyx-demo-3030 --bind 172.29.65.166 --port 3030",
+    "build": "slidev build --base /Nyx_universe_visualization/",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@slidev/cli": "^0.50.0",
+    "@slidev/theme-default": "^0.25.0",
+    "@vueuse/core": "^11.3.0",
+    "lucide-vue-next": "^0.468.0",
+    "vite": "^5.4.0",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {}
+}
