@@ -11,10 +11,13 @@
 
 html,
 body,
-#app,
-.slidev-layout {
+#app {
   min-height: 100%;
   color: var(--nyx-ink);
+}
+
+html,
+body {
   background:
     radial-gradient(circle at 16% 14%, rgba(85, 133, 255, 0.28), transparent 28%),
     radial-gradient(circle at 84% 20%, rgba(255, 79, 139, 0.22), transparent 26%),
@@ -22,11 +25,26 @@ body,
     linear-gradient(135deg, #03040c 0%, #0a1031 42%, #1c0b35 72%, #050713 100%);
 }
 
+.nyx-cosmos-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
+}
+
 .slidev-layout {
   position: relative;
   overflow: hidden;
   padding: 42px 54px;
   font-family: "Inter", "Segoe UI", "Microsoft YaHei", sans-serif;
+  background: transparent !important;
 }
 
 .slidev-layout::before,
@@ -41,12 +59,12 @@ body,
     radial-gradient(rgba(255, 209, 102, 0.7) 0.7px, transparent 1px);
   background-size: 90px 90px, 142px 142px, 210px 210px;
   background-position: 0 0, 30px 60px, 110px 20px;
-  opacity: 0.58;
+  opacity: 0.22;
   animation: stars-drift 55s linear infinite;
 }
 
 .slidev-layout::after {
-  opacity: 0.35;
+  opacity: 0.14;
   filter: blur(0.7px);
   animation-duration: 85s;
   animation-direction: reverse;
