@@ -6,7 +6,10 @@ let teardownDrag = null
 const { next, prev } = useNav()
 let canvas = null
 let ctx = null
+let fxCanvas = null
+let fxCtx = null
 let frameId = 0
+let fxFrameId = 0
 let stars = []
 let bursts = []
 let pointerX = 0
@@ -204,6 +207,14 @@ function resizeCosmos() {
   canvas.style.height = `${height}px`
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
+  if (fxCanvas && fxCtx) {
+    fxCanvas.width = Math.floor(width * dpr)
+    fxCanvas.height = Math.floor(height * dpr)
+    fxCanvas.style.width = `${width}px`
+    fxCanvas.style.height = `${height}px`
+    fxCtx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  }
+
   const count = Math.min(170, Math.max(92, Math.floor((width * height) / 9000)))
   stars = Array.from({ length: count }, (_, i) => ({
     x: Math.random() * width,
@@ -280,6 +291,15 @@ function drawCosmos(time = 0) {
     }
   }
 
+  frameId = requestAnimationFrame(drawCosmos)
+}
+
+function drawGalaxyBursts() {
+  if (!fxCanvas || !fxCtx)
+    return
+
+  fxCtx.clearRect(0, 0, width, height)
+
   const now = performance.now()
   bursts = bursts.filter(burst => now - burst.born < burst.life)
   for (const burst of bursts) {
@@ -289,18 +309,18 @@ function drawCosmos(time = 0) {
     const fade = (1 - t) ** 1.45
     const coreSize = 22 + easeOut * 48
 
-    const core = ctx.createRadialGradient(burst.x, burst.y, 0, burst.x, burst.y, coreSize)
+    const core = fxCtx.createRadialGradient(burst.x, burst.y, 0, burst.x, burst.y, coreSize)
     core.addColorStop(0, `rgba(255, 255, 255, ${0.58 * fade})`)
     core.addColorStop(0.22, `rgba(111, 247, 223, ${0.34 * fade})`)
     core.addColorStop(0.55, `rgba(141, 92, 255, ${0.16 * fade})`)
     core.addColorStop(1, 'rgba(0, 0, 0, 0)')
-    ctx.fillStyle = core
-    ctx.beginPath()
-    ctx.arc(burst.x, burst.y, coreSize, 0, Math.PI * 2)
-    ctx.fill()
+    fxCtx.fillStyle = core
+    fxCtx.beginPath()
+    fxCtx.arc(burst.x, burst.y, coreSize, 0, Math.PI * 2)
+    fxCtx.fill()
 
-    ctx.save()
-    ctx.globalCompositeOperation = 'lighter'
+    fxCtx.save()
+    fxCtx.globalCompositeOperation = 'lighter'
     for (const particle of burst.particles) {
       const angle = particle.angle + age * particle.spin
       const radius = particle.radius * (0.35 + easeOut * particle.speed)
@@ -311,25 +331,25 @@ function drawCosmos(time = 0) {
       const tailX = x - Math.cos(angle + Math.PI / 2) * (7 + particle.size * 2) * fade
       const tailY = y - Math.sin(angle + Math.PI / 2) * (7 + particle.size * 2) * fade
 
-      const trail = ctx.createLinearGradient(tailX, tailY, x, y)
+      const trail = fxCtx.createLinearGradient(tailX, tailY, x, y)
       trail.addColorStop(0, `rgba(${particle.hue}, 0)`)
       trail.addColorStop(1, `rgba(${particle.hue}, ${alpha * 0.62})`)
-      ctx.strokeStyle = trail
-      ctx.lineWidth = particle.size * 0.8
-      ctx.beginPath()
-      ctx.moveTo(tailX, tailY)
-      ctx.lineTo(x, y)
-      ctx.stroke()
+      fxCtx.strokeStyle = trail
+      fxCtx.lineWidth = particle.size * 0.8
+      fxCtx.beginPath()
+      fxCtx.moveTo(tailX, tailY)
+      fxCtx.lineTo(x, y)
+      fxCtx.stroke()
 
-      ctx.fillStyle = `rgba(${particle.hue}, ${alpha})`
-      ctx.beginPath()
-      ctx.arc(x, y, particle.size * (0.7 + fade * 0.35), 0, Math.PI * 2)
-      ctx.fill()
+      fxCtx.fillStyle = `rgba(${particle.hue}, ${alpha})`
+      fxCtx.beginPath()
+      fxCtx.arc(x, y, particle.size * (0.7 + fade * 0.35), 0, Math.PI * 2)
+      fxCtx.fill()
     }
-    ctx.restore()
+    fxCtx.restore()
   }
 
-  frameId = requestAnimationFrame(drawCosmos)
+  fxFrameId = requestAnimationFrame(drawGalaxyBursts)
 }
 
 function mountCosmos() {
@@ -338,8 +358,16 @@ function mountCosmos() {
   canvas.setAttribute('aria-hidden', 'true')
   document.body.prepend(canvas)
   ctx = canvas.getContext('2d')
+
+  fxCanvas = document.createElement('canvas')
+  fxCanvas.className = 'nyx-galaxy-fx-canvas'
+  fxCanvas.setAttribute('aria-hidden', 'true')
+  document.body.append(fxCanvas)
+  fxCtx = fxCanvas.getContext('2d')
+
   resizeCosmos()
   frameId = requestAnimationFrame(drawCosmos)
+  fxFrameId = requestAnimationFrame(drawGalaxyBursts)
 }
 
 function onPointerMove(event) {
@@ -369,9 +397,13 @@ onMounted(() => {
 
 onUnmounted(() => {
   cancelAnimationFrame(frameId)
+  cancelAnimationFrame(fxFrameId)
   canvas?.remove()
+  fxCanvas?.remove()
   canvas = null
   ctx = null
+  fxCanvas = null
+  fxCtx = null
   observer?.disconnect()
   teardownDrag?.()
   document.removeEventListener('keydown', onEsc, true)
